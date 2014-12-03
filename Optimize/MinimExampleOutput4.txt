@@ -1,0 +1,23 @@
+This file, MinimExampleOutput.txt, was created at 1:49:27 AM on Oct 21, 2014
+ 
+Simplex minimisation, using the method of Nelder and Mead,
+of the function y = f(c[0], c[1], c[2] . . .)
+
+Value of parameters at the minimum
+ 
+             	Value at     	Initial      	Initial
+             	mimium       	estimate     	step
+c[0]         	1.1708E-8    	1.0          	0.2
+c[1]         	-4.2935E-5   	3.0          	0.6
+
+ 
+Number of paramaters	2
+Number of iterations taken	252
+Maximum number of iterations allowed	3000
+Number of restarts taken	3
+Maximum number of restarts allowed	3
+Standard deviation of the simplex at the minimum	0.0
+Convergence tolerance	1.0E-15
+simplex sd < the tolerance
+
+End of file

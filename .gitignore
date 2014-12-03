@@ -1,43 +1,17 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
+# Exclude all java class files
+*.class
 
-# Folder config file
-Desktop.ini
+# Exclude the eclipse bin and classes folders
+bin/
+classes/
 
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
+# Exclude the eclipse .metadata workspace folder
+.metadata/
 
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
-# =========================
-# Operating System Files
-# =========================
-
-# OSX
-# =========================
-
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must end with two \r
-Icon
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
+# Exclude temporary and backup files
+tmp/
+*.bak
+*.tmp
+ 
+# Exclude log files
+*.log
