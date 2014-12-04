@@ -40,7 +40,7 @@ public class WindowModel extends Observable implements ModelInterface {
 
   private JFrame error;
 
-  public ArrayList<List<String>> DatabaseOperation(String query, String username, String password,
+  public ArrayList<List<String>> databaseOperation(String query, String username, String password,
           String ipaddress, String dbName) {
     Connection conn = null;
     ResultSet rs = null;
@@ -82,13 +82,13 @@ public class WindowModel extends Observable implements ModelInterface {
 
           majorResults.add(rs.getString(5));
 
-          results.add(firstNameResults);
-          results.add(middleNameResults);
-          results.add(lastNameResults);
-          results.add(emailResults);
-          results.add(majorResults);
-
         }
+        results.add(firstNameResults);
+        results.add(middleNameResults);
+        results.add(lastNameResults);
+        results.add(emailResults);
+        results.add(majorResults);
+
       } else {
         preparedStmt.executeUpdate();
 
@@ -111,6 +111,10 @@ public class WindowModel extends Observable implements ModelInterface {
     notifyObservers();
     return results;
 
+  }
+
+  public ArrayList<List<String>> getResults() {
+    return results;
   }
 
 }

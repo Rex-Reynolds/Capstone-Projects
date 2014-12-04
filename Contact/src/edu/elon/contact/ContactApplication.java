@@ -1,5 +1,5 @@
 /**
- * HelloClass.java 1.0 Aug 21, 2014
+ * ContactApplication.java 1.0 Aug 21, 2014
  *
  * Copyright (c) 2014 Rex Reynolds. All Rights Reserved
  */
@@ -18,7 +18,7 @@ import javax.swing.JFrame;
 public class ContactApplication extends JFrame {
 
   /**
-   * 
+   * Generated Serial Id
    */
   private static final long serialVersionUID = 5925095626911453270L;
 
@@ -28,7 +28,7 @@ public class ContactApplication extends JFrame {
    * @param args array of string used for command line arguments.
    */
   public static void main(String[] args) {
-    WindowModel model = new WindowModel();
+    ModelInterface model = new WindowModel();
     new WindowController(model);
 
   }

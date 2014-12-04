@@ -18,6 +18,8 @@ import java.util.List;
 public interface ModelInterface {
 
   /**
+   * performs a given operation on the database
+   * 
    * @param query
    * @param username
    * @param password
@@ -25,7 +27,13 @@ public interface ModelInterface {
    * @param dbName
    * @return arraylist of lists of strings
    */
-  public ArrayList<List<String>> DatabaseOperation(String query, String username, String password,
+  public ArrayList<List<String>> databaseOperation(String query, String username, String password,
           String ipaddress, String dbName);
+
+  /**
+   * 
+   * @return arraylist of lists
+   */
+  public ArrayList<List<String>> getResults();
 
 }

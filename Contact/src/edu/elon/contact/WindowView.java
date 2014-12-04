@@ -1,5 +1,5 @@
 /**
- * FirstWindow.java 1.0 Aug 29, 2014
+ * WindowView.java 1.0 Aug 29, 2014
  *
  * Copyright (c) 2014 Rex A. Reynolds III. All Rights Reserved
  */
@@ -92,30 +92,27 @@ public class WindowView implements Observer {
 
   private List<List<String>> results;
 
-  String dbUserName;
-  String dbPassword;
-
-  WindowModel model;
-  WindowController controller;
-  JFrame viewFrame;
+  private ModelInterface model = null;
+  private ControllerInterface controller;
+  private JFrame viewFrame;
 
   /**
    * Generic constructor
    * 
    * @param controller
-   * @param model
+   * @param aModel
    * 
    */
-  public WindowView(WindowController controller, WindowModel model) {
+  public WindowView(ControllerInterface controller, ModelInterface aModel) {
     // Title for all Swing Gui's
-    this.model = model;
+    this.model = aModel;
     this.controller = controller;
-    model.addObserver(this);
+    ((Observable) model).addObserver(this);
   }
 
   /**
-     * 
-     */
+   * Creates the initial Gui view
+   */
   public void createView() {
 
     viewFrame = new JFrame("Calculator");
@@ -193,15 +190,19 @@ public class WindowView implements Observer {
     buttonPanel.add(prevButton);
     prevButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent aArg0) {
-        tempNum2--;
-        results = controller.Previous(tableName.getText(), userName.getText(), password.getText(),
-                ipAddress.getText(), dbName.getText());
+        if (tempNum2 > 0) {
+          tempNum2--;
+          results = controller.previous(tableName.getText(), userName.getText(),
+                  password.getText(), ipAddress.getText(), dbName.getText());
 
-        firstName.setText(results.get(0).get(tempNum2));
-        middleName.setText(results.get(1).get(tempNum2));
-        lastName.setText(results.get(2).get(tempNum2));
-        email.setText(results.get(3).get(tempNum2));
-        major.setText(results.get(4).get(tempNum2));
+          firstName.setText(results.get(0).get(tempNum2));
+          middleName.setText(results.get(1).get(tempNum2));
+          lastName.setText(results.get(2).get(tempNum2));
+          email.setText(results.get(3).get(tempNum2));
+          major.setText(results.get(4).get(tempNum2));
+        } else {
+          System.out.println("no more entries");
+        }
 
       }
     });
@@ -211,17 +212,21 @@ public class WindowView implements Observer {
     buttonPanel.add(nextButton, BorderLayout.SOUTH);
     nextButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent aE) {
+        if (tempNum2 < results.size()) {
 
-        tempNum2++;
-        results = null;
-        results = controller.Next(tableName.getText(), userName.getText(), password.getText(),
-                ipAddress.getText(), dbName.getText());
+          tempNum2++;
+          results = null;
+          results = controller.next(tableName.getText(), userName.getText(), password.getText(),
+                  ipAddress.getText(), dbName.getText());
 
-        firstName.setText(results.get(0).get(tempNum2));
-        middleName.setText(results.get(1).get(tempNum2));
-        lastName.setText(results.get(2).get(tempNum2));
-        email.setText(results.get(3).get(tempNum2));
-        major.setText(results.get(4).get(tempNum2));
+          firstName.setText(results.get(0).get(tempNum2));
+          middleName.setText(results.get(1).get(tempNum2));
+          lastName.setText(results.get(2).get(tempNum2));
+          email.setText(results.get(3).get(tempNum2));
+          major.setText(results.get(4).get(tempNum2));
+        } else {
+          System.out.println("no more entries");
+        }
 
       }
     });
@@ -232,7 +237,7 @@ public class WindowView implements Observer {
     okButton2 = new JButton("OK");
     okButton2.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent aE) {
-        controller.Add(newFirstName.getText(), newMiddleName.getText(), newLastName.getText(),
+        controller.add(newFirstName.getText(), newMiddleName.getText(), newLastName.getText(),
                 newEmail.getText(), newMajor.getText(), tableName.getText(), userName.getText(),
                 password.getText(), ipAddress.getText(), dbName.getText());
 
@@ -277,9 +282,9 @@ public class WindowView implements Observer {
     remove.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent aE) {
-        controller.Remove(tableName.getText(), lastName.getText(), userName.getText(),
+        controller.remove(tableName.getText(), lastName.getText(), userName.getText(),
                 password.getText(), ipAddress.getText(), dbName.getText());
-        results = controller.Connect(tableName.getText(), userName.getText(), password.getText(),
+        results = controller.connect(tableName.getText(), userName.getText(), password.getText(),
                 ipAddress.getText(), dbName.getText());
         firstName.setText(results.get(0).get(0));
         middleName.setText(results.get(1).get(0));
@@ -300,7 +305,7 @@ public class WindowView implements Observer {
     update.setEnabled(false);
     update.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent aE) {
-        controller.Update(tableName.getText(), firstName.getText(), middleName.getText(),
+        controller.update(tableName.getText(), firstName.getText(), middleName.getText(),
                 lastName.getText(), email.getText(), major.getText(), userName.getText(),
                 password.getText(), ipAddress.getText(), dbName.getText());
         viewFrame.validate();
@@ -315,7 +320,7 @@ public class WindowView implements Observer {
     fileMenu.add(clearDb);
     clearDb.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent aE) {
-        controller.ClearDb(tableName.getText(), userName.getText(), password.getText(),
+        controller.clearDb(tableName.getText(), userName.getText(), password.getText(),
                 ipAddress.getText(), dbName.getText());
 
         // resetting all fields to null to reflect cleared database
@@ -346,14 +351,18 @@ public class WindowView implements Observer {
         buttonPanel.add(okButton, BorderLayout.SOUTH);
         okButton.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent aE) {
-            results = controller.Connect(tableName.getText(), userName.getText(),
+            results = controller.connect(tableName.getText(), userName.getText(),
                     password.getText(), ipAddress.getText(), dbName.getText());
-            results.size();
-            firstName.setText(results.get(0).get(0));
-            middleName.setText(results.get(1).get(0));
-            lastName.setText(results.get(2).get(0));
-            email.setText(results.get(3).get(0));
-            major.setText(results.get(4).get(0));
+
+            if (results.size() > 0) {
+              firstName.setText(results.get(0).get(0));
+              middleName.setText(results.get(1).get(0));
+              lastName.setText(results.get(2).get(0));
+              email.setText(results.get(3).get(0));
+              major.setText(results.get(4).get(0));
+            } else {
+              System.out.println("no entries in the database");
+            }
 
             // reset all fields and buttons
             controller.resetOkComponents();
@@ -371,7 +380,7 @@ public class WindowView implements Observer {
     fileMenu.add(exit);
     exit.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent aE) {
-        controller.Exit();
+        controller.exit();
 
       }
 
@@ -392,13 +401,17 @@ public class WindowView implements Observer {
    * java.lang.Object)
    */
   public void update(Observable aO, Object aArg) {
-    results = controller.Connect(tableName.getText(), userName.getText(), password.getText(),
-            ipAddress.getText(), dbName.getText());
-    firstName.setText(results.get(0).get(0));
-    middleName.setText(results.get(1).get(0));
-    lastName.setText(results.get(2).get(0));
-    email.setText(results.get(3).get(0));
-    major.setText(results.get(4).get(0));
+    results = model.getResults();
+    if (!results.isEmpty()) {
+
+      firstName.setText(results.get(0).get(0));
+      middleName.setText(results.get(1).get(0));
+      lastName.setText(results.get(2).get(0));
+      email.setText(results.get(3).get(0));
+      major.setText(results.get(4).get(0));
+    } else {
+      System.out.println("results are empty");
+    }
 
   }
 

@@ -18,6 +18,8 @@ import java.util.List;
 public interface ControllerInterface {
 
   /**
+   * Clears the Database of all entries
+   * 
    * @param tableName
    * @param userName
    * @param password
@@ -25,26 +27,12 @@ public interface ControllerInterface {
    * @param dbName
    * @return array list of arrays
    */
-  public ArrayList<List<String>> ClearDb(String tableName, String userName, String password,
+  public ArrayList<List<String>> clearDb(String tableName, String userName, String password,
           String ipAddress, String dbName);
 
   /**
-   * @param tableName
-   * @param userName
-   * @param password
-   * @param ipAddress
-   * @param dbName
-   * @return arraylist of arrays
-   */
-  public ArrayList<List<String>> Connect(String tableName, String userName, String password,
-          String ipAddress, String dbName);
-
-  /**
+   * Connects to the database
    * 
-   */
-  public void Exit();
-
-  /**
    * @param tableName
    * @param userName
    * @param password
@@ -52,10 +40,17 @@ public interface ControllerInterface {
    * @param dbName
    * @return arraylist of arrays
    */
-  public ArrayList<List<String>> Previous(String tableName, String userName, String password,
+  public ArrayList<List<String>> connect(String tableName, String userName, String password,
           String ipAddress, String dbName);
 
   /**
+   * Exits the application
+   */
+  public void exit();
+
+  /**
+   * Goes to the previous entry in the database and displays it
+   * 
    * @param tableName
    * @param userName
    * @param password
@@ -63,10 +58,25 @@ public interface ControllerInterface {
    * @param dbName
    * @return arraylist of arrays
    */
-  public ArrayList<List<String>> Next(String tableName, String userName, String password,
+  public ArrayList<List<String>> previous(String tableName, String userName, String password,
           String ipAddress, String dbName);
 
   /**
+   * goes to the next item in the database and displays it
+   * 
+   * @param tableName
+   * @param userName
+   * @param password
+   * @param ipAddress
+   * @param dbName
+   * @return arraylist of arrays
+   */
+  public ArrayList<List<String>> next(String tableName, String userName, String password,
+          String ipAddress, String dbName);
+
+  /**
+   * Adds an entry to the database
+   * 
    * @param firstName
    * @param middleName
    * @param lastName
@@ -79,11 +89,13 @@ public interface ControllerInterface {
    * @param dbName
    * @return arraylist of arrays
    */
-  public ArrayList<List<String>> Add(String firstName, String middleName, String lastName,
+  public ArrayList<List<String>> add(String firstName, String middleName, String lastName,
           String email, String major, String tableName, String userName, String password,
           String ipAddress, String dbName);
 
   /**
+   * removes the entry from the database
+   * 
    * @param tableName
    * @param firstName
    * @param userName
@@ -92,10 +104,12 @@ public interface ControllerInterface {
    * @param dbName
    * @return arraylist of arrays
    */
-  public ArrayList<List<String>> Remove(String tableName, String firstName, String userName,
+  public ArrayList<List<String>> remove(String tableName, String firstName, String userName,
           String password, String ipAddress, String dbName);
 
   /**
+   * updates the selected entry in the database
+   * 
    * @param tableName
    * @param firstName
    * @param middleName
@@ -108,7 +122,7 @@ public interface ControllerInterface {
    * @param dbName
    * @return arraylist of arrays
    */
-  public ArrayList<List<String>> Update(String tableName, String firstName, String middleName,
+  public ArrayList<List<String>> update(String tableName, String firstName, String middleName,
           String lastName, String email, String major, String userName, String password,
           String ipAddress, String dbName);
 

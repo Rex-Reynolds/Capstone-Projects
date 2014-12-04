@@ -16,7 +16,7 @@ import java.util.List;
  * 
  */
 public class WindowController implements ControllerInterface {
-  private WindowModel model;
+  private ModelInterface model;
   private WindowView view;
   private ArrayList<List<String>> results;
   /**
@@ -32,57 +32,57 @@ public class WindowController implements ControllerInterface {
   /**
    * @param aModel
    */
-  public WindowController(WindowModel aModel) {
+  public WindowController(ModelInterface aModel) {
     this.model = aModel;
     view = new WindowView(this, model);
     view.createView();
 
   }
 
-  public void Exit() {
+  public void exit() {
     System.exit(0);
 
   }
 
-  public ArrayList<List<String>> Previous(String tableName, String userName, String password,
+  public ArrayList<List<String>> previous(String tableName, String userName, String password,
           String ipAddress, String dbName) {
-    results = model.DatabaseOperation("SELECT * FROM " + tableName, userName, password, ipAddress,
+    results = model.databaseOperation("SELECT * FROM " + tableName, userName, password, ipAddress,
             dbName);
     return results;
   }
 
-  public ArrayList<List<String>> Next(String tableName, String userName, String password,
+  public ArrayList<List<String>> next(String tableName, String userName, String password,
           String ipAddress, String dbName) {
 
-    results = model.DatabaseOperation("SELECT * FROM " + tableName, userName, password, ipAddress,
+    results = model.databaseOperation("SELECT * FROM " + tableName, userName, password, ipAddress,
             dbName);
     return results;
 
   }
 
-  public ArrayList<List<String>> ClearDb(String tableName, String userName, String password,
+  public ArrayList<List<String>> clearDb(String tableName, String userName, String password,
           String ipAddress, String dbName) {
-    results = model.DatabaseOperation("DELETE FROM " + tableName, userName, password, ipAddress,
-            dbName);
-
-    return results;
-
-  }
-
-  public ArrayList<List<String>> Connect(String tableName, String userName, String password,
-          String ipAddress, String dbName) {
-    results = model.DatabaseOperation("SELECT * FROM " + tableName, userName, password, ipAddress,
+    results = model.databaseOperation("DELETE FROM " + tableName, userName, password, ipAddress,
             dbName);
 
     return results;
 
   }
 
-  public ArrayList<List<String>> Add(String firstName, String middleName, String lastName,
+  public ArrayList<List<String>> connect(String tableName, String userName, String password,
+          String ipAddress, String dbName) {
+    results = model.databaseOperation("SELECT * FROM " + tableName, userName, password, ipAddress,
+            dbName);
+
+    return results;
+
+  }
+
+  public ArrayList<List<String>> add(String firstName, String middleName, String lastName,
           String email, String major, String tableName, String userName, String password,
           String ipAddress, String dbName) {
 
-    results = model.DatabaseOperation("INSERT INTO " + tableName
+    results = model.databaseOperation("INSERT INTO " + tableName
             + "(First_Name, Middle_Name, Last_name, Email, Major) VALUES('" + firstName + "','"
             + middleName + "','" + lastName + "','" + email + "','" + major + "');", userName,
             password, ipAddress, dbName);
@@ -91,19 +91,19 @@ public class WindowController implements ControllerInterface {
 
   }
 
-  public ArrayList<List<String>> Remove(String tableName, String lastName, String userName,
+  public ArrayList<List<String>> remove(String tableName, String lastName, String userName,
           String password, String ipAddress, String dbName) {
-    results = model.DatabaseOperation("DELETE FROM " + tableName + " WHERE Last_Name= '" + lastName
+    results = model.databaseOperation("DELETE FROM " + tableName + " WHERE Last_Name= '" + lastName
             + "'", userName, password, ipAddress, dbName);
 
     return results;
 
   }
 
-  public ArrayList<List<String>> Update(String tableName, String firstName, String middleName,
+  public ArrayList<List<String>> update(String tableName, String firstName, String middleName,
           String lastName, String email, String major, String userName, String password,
           String ipAddress, String dbName) {
-    results = model.DatabaseOperation("UPDATE " + tableName + " SET First_Name= '" + firstName
+    results = model.databaseOperation("UPDATE " + tableName + " SET First_Name= '" + firstName
             + "',Middle_Name='" + middleName + "',Last_Name='" + lastName + "',Email='" + email
             + "',Major='" + major + "' WHERE Email = '" + email + "';", userName, password,
             ipAddress, dbName);
